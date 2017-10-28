@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/lib/Button';
+import './splash.css';
 
 class Splash extends Component {
   render() {
     return (
-      <div>
-        <h1> FinanceMe </h1>
-        <h3> learn how to manage money </h3>
+      <div className="Splash--body">
+        <h1> Finance_Me </h1>
+        <h3> Have you ever wondered what your parents do with all the money? </h3>
+        <h4> You can play this game and learn why they are saying NO to all your requests. </h4>
         <div>
           <Button bsStyle="primary">Play Now</Button>
           <Button bsStyle="link">Take the tutorial</Button>
