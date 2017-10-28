@@ -9,7 +9,7 @@ class Splash extends Component {
         <h1> Finance_Me </h1>
         <h3> Have you ever wondered what your parents do with all the money? </h3>
         <h4> You can play this game and learn why they are saying NO to all your requests. </h4>
-        <div>
+        <div className="Splash--button-area">
           <Button bsStyle="primary">Play Now</Button>
           <Button bsStyle="link">Take the tutorial</Button>
         </div>

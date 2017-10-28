@@ -9,3 +9,7 @@
 .Splash--title {
     color: red;
 }
+
+.Splash--button-area {
+    margin-top: 15px;
+}
