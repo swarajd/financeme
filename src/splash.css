@@ -1,9 +1,42 @@
-.Splash--body {
+@import url('https://fonts.googleapis.com/css?family=Lato');
+@import url('https://fonts.googleapis.com/css?family=Merriweather');
+
+.Splash--background {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    width: 100vw;
+    background-image: url("stars.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+}
+
+.Splash--body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+
+.Splash--body > h1 {
+    font-size: 80px;
+    font-weight: bold;
+    font-family: 'Lato', sans-serif;
+    /* font-family: "Comic Sans MS", cursive, sans-serif; */
+    margin-bottom: 60px;
+}
+
+.Splash--body > h3 {
+    font-family: 'Merriweather', serif;
+}
+
+.Splash--body > h3:last-of-type {
+    margin-bottom: 80px;
 }
 
 .Splash--title {
@@ -12,4 +45,9 @@
 
 .Splash--button-area {
     margin-top: 15px;
+    font-family: 'Merriweather', serif;
+}
+
+.Splash--button-area-tutorial {
+    color: #fff !important; /* God have mercy on me for I have sinned */
 }
