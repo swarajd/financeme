@@ -12,7 +12,7 @@ class Tutorial extends Component {
 
   constructor() {
 
-    let initialSalary = Math.floor(Math.random() * ((600 - 500) + 1) + 500);
+    let initialSalary = Math.floor(Math.random() * 100 + 500);
 
     super();
     this.state = {
@@ -135,6 +135,7 @@ class Tutorial extends Component {
           stage: this.state.stage + 1,
           currentEvent: curEvt,
           [type]: false,
+          joy: this.state.joy - Math.floor(Math.random() * 10 + 5)
         });
         this.incrementValues();
         console.log(curEvt);
