@@ -1,0 +1,155 @@
+.Tutorial--body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+.Tutorial--sidebar {
+    width: 20vw;
+    height: 100%;
+    background-color: #2c2f37;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Tutorial--content {
+    width: 80vw;
+    height: 100%;
+    padding: 10px;
+}
+
+.Tutorial--content-rock-balance {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.Tutorial--content-category-sliders {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 300px;
+    font-size: 24px;
+    margin-left: 90px;
+}
+
+.Tutorial--content-scale {
+    width: 45%;
+    height: 150px;
+}
+
+.circular--square {
+    border-top-left-radius: 50% 50%;
+    border-top-right-radius: 50% 50%;
+    border-bottom-right-radius: 50% 50%;
+    border-bottom-left-radius: 50% 50%;
+    height: 30%;
+    margin-bottom: 5%;
+}
+
+.Tutorial--name {
+    height: 10%;
+    padding: 10px;
+    width: 100%;
+    font-size: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #36363f;
+    background-color: #373942;
+}
+
+.Tutorial--about {
+    height: 65%;
+    margin-top: 5%;
+    padding: 10px;
+    width: 100%;
+    font-size: 20px;
+    border: 2px solid #36363f;
+    background-color: #373942;
+    text-align: center;
+}
+
+.Tutorial--content-scale-slider > .sliderWrapper > input[type="range"] {
+    width: 80%;
+}
+
+.Tutorial--content-loans-wrapper {
+    /* margin-top: 10px; */
+    text-align: center;
+    margin-right: 10px;
+}
+
+.Tutorial--loans-modal-buttons {
+    text-align: center;
+}
+
+.loan-modal-button {
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.Tutorial--footer {
+    display: flex;
+    flex-direction: row;
+    height: 30vh;
+}
+
+.Tutorial--rock-stash {
+    width: 60vw;
+    margin: 10px;
+    /* border: 1px solid #000; */
+    background-color: rgba(189,195,199, 0.3);
+}
+
+.Tutorial--rock-stash > h1 {
+    text-align: center;
+}
+
+.Tutorial--rock-stash-stats {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+}
+
+.Tutorial--rock-stash-stat {
+    font-size: 24px;
+    width: 33%;
+    text-align: center;
+}
+
+.Tutorial--joy-meter {
+    width: 40vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid #000; */
+    background-color: rgba(189,195,199, 0.3);
+    margin: 10px;
+}
+
+.Tutorial--joy-meter > h1 {
+    text-align: center;
+}
+
+.progressWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+}
+
+.progress {
+    width: 80%;
+    margin-top: 50px;
+}
