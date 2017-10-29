@@ -39,6 +39,7 @@ class Tutorial extends Component {
     this.close = this.close.bind(this);
     this.closeChoice = this.closeChoice.bind(this);
     this.closeNormal = this.closeNormal.bind(this);
+    this.makeChoice = this.makeChoice.bind(this);
     this.incrementStage = this.incrementStage.bind(this);
     this.incrementValues = this.incrementValues.bind(this);
     this.updateSlider = this.updateSlider.bind(this);
@@ -69,6 +70,28 @@ class Tutorial extends Component {
 
   closeNormal() {
     this.setState({ normalEventFulfilled: true });
+  }
+
+  makeChoice(idx, yn = false) {
+    if (yn) {
+      if (idx === 0) {
+        this.setState({
+          unallocated: this.state.unallocated + this.state.currentEvent[1],
+          joy: this.state.joy + this.state.currentEvent[2]
+        })
+      }
+    } else {
+      if (idx === 0) {
+        this.setState({
+          joy: this.state.joy + this.state.currentEvent[2]
+        })
+      } else {
+        this.setState({
+          currentAllocated: this.state.currentAllocated + this.state.currentEvent[1]
+        })
+      }
+    }
+    this.closeChoice();
   }
 
   open() {
@@ -189,8 +212,8 @@ class Tutorial extends Component {
                 </Modal.Header>
                 <Modal.Body>
                   <div className="Tutorial--loans-modal-buttons">
-                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button">{this.state.currentEvent.length > 0 ? this.state.currentEvent[3][0] : "yes"}</Button>
-                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button">{this.state.currentEvent.length > 0 ? this.state.currentEvent[3][1] : "no"}</Button>
+                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button" onClick={() => this.makeChoice(0, this.state.currentEvent[3][0] === "Yes") }>{this.state.currentEvent.length > 0 ? this.state.currentEvent[3][0] : "yes"}</Button>
+                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button" onClick={() => this.makeChoice(1, this.state.currentEvent[3][0] === "Yes") }>{this.state.currentEvent.length > 0 ? this.state.currentEvent[3][1] : "no"}</Button>
                   </div>
                 </Modal.Body>
               </Modal>
