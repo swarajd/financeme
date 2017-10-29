@@ -27,34 +27,34 @@ function bonus() {
     var bonusJoy = 0;
     var decisionText = [];
     var promotionRock = 0;
-  
+
     switch (x) {
       case 1:
         bonusRock = Math.floor((Math.random() * 100) + 50);
-        outputText = bonusRock + " bonus? This rocks! (Gained " + bonusRock + " rocks.)";
+        outputText = bonusRock + " bonus? This rocks! Gained " + bonusRock + " rocks.";
         break;
       case 2:
         bonusRock = Math.floor((Math.random() * 100) + 50);
         outputText = "A friend gave you " + bonusRock + " rocks. Do not spend all in "
-          + "one place. (Gained " + bonusRock + " rocks.)";
+          + "one place. Gained " + bonusRock + " rocks.";
         break;
       case 3:
         bonusJoy = Math.floor((Math.random() * 10) + 5);
         outputText = "You got a compliment! That rocked your world. " +
-          "(Gained " + bonusJoy + " joy.)";
+          "Gained " + bonusJoy + " joy.";
         break;
       case 4:
         bonusRock = Math.floor((Math.random() * 100) + 50);
         bonusJoy = Math.floor((Math.random() * 10) + 5);
         outputText = "You won rock lottery. Solid stuff! " +
-          "(Gained " + bonusRock + " rocks AND gained " + bonusJoy + " joy.)";
+          "Gained " + bonusRock + " rocks AND gained " + bonusJoy + " joy.";
         break;
       default:
         outputText = "You rocked out of control!";
         bonusRock = -1;
         bonusJoy = -1;
     }
-  
+
     output.push(outputText);
     output.push(bonusRock);
     output.push(bonusJoy);
@@ -70,36 +70,36 @@ function bonus() {
     var bonusJoy = 0;
     var decisionText = [];
     var promotionRock = 0;
-  
+
     switch (x) {
       case 1:
         bonusRock = Math.floor((Math.random() * 100) + 50);
-        bonusJoy = Math.floor((Math.random() * 10) + 5);
+        bonusJoy = Math.floor((Math.random() * 20) + 5);
         outputText = "You took your health for granite. You need to go to the emergency room. " +
-          "(Lose "+ bonusRock + " rocks AND " + bonusJoy + " joy.)";
+          "Lose "+ bonusRock + " rocks AND " + bonusJoy + " joy.";
         break;
       case 2:
         bonusRock = Math.floor((Math.random() * 100) + 50);
         outputText = "You igneous the consequences, your suit pants split and now you need new pants. " +
-          "(Lose "+ bonusRock + " rocks.)";
+          "Lose "+ bonusRock + " rocks.";
         break;
       case 3:
         bonusRock = Math.floor((Math.random() * 100) + 50);
-        bonusJoy = Math.floor((Math.random() * 10) + 5);
+        bonusJoy = Math.floor((Math.random() * 20) + 5);
         outputText = "Oh my geode, the concert was cancelled. No rock refunds. " +
-          "(Lose "+ bonusRock + " rocks AND " + bonusJoy + " joy.)";
+          "Lose "+ bonusRock + " rocks AND " + bonusJoy + " joy.";
         break;
       case 4:
         bonusRock = Math.floor((Math.random() * 100) + 50);
         outputText = "It seems cave security was not very concrete. " +
-          "(Lose " + bonusRock + " rocks.)";
+          "Lose " + bonusRock + " rocks.";
         break;
       default:
         outputText = "You rocked out of control!";
         bonusRock = -1;
         bonusJoy = -1;
     }
-  
+
     output.push(outputText);
     output.push(-1 * bonusRock);
     output.push(-1 * bonusJoy);
@@ -115,13 +115,13 @@ function bonus() {
     var bonusJoy = 0;
     var decisionText = [];
     var promotionRock = 0;
-  
+
     switch (x) {
       case 1:
         bonusRock = Math.floor((Math.random() * 100) + 100);
-        bonusJoy = Math.floor((Math.random() * 10) + 10);
+        bonusJoy = Math.floor((Math.random() * 20) + 10);
         outputText = "You can rock overtime. Sadder time but more rock. Is it worth? " +
-          "(Get " + bonusRock + " rocks AND lose " + bonusJoy + " joy.)";
+          "Get " + bonusRock + " rocks AND lose " + bonusJoy + " joy.";
         output.push(outputText);
         output.push(bonusRock);
         output.push(-1 * bonusJoy);
@@ -130,7 +130,7 @@ function bonus() {
         bonusRock = Math.floor((Math.random() * 100) + 100);
         bonusJoy = Math.floor((Math.random() * 10) + 10);
         outputText = "Time for vacation. You need time off. Go to rock and roll concert? " +
-          "(Get " + bonusJoy + " joy AND lose " + bonusRock + " rocks.)";
+          "Get " + bonusJoy + " joy AND lose " + bonusRock + " rocks.";
         output.push(outputText);
         output.push(-1 * bonusRock);
         output.push(bonusJoy);
@@ -139,7 +139,7 @@ function bonus() {
         bonusRock = Math.floor((Math.random() * 100) + 100);
         bonusJoy = Math.floor((Math.random() * 10) + 10);
         outputText = "Go on a gneiss rock date. " +
-          "(Get " + bonusJoy + " joy AND lose " + bonusRock + " rocks.)";
+          "Get " + bonusJoy + " joy AND lose " + bonusRock + " rocks.";
         output.push(outputText);
         output.push(-1 * bonusRock);
         output.push(bonusJoy);
@@ -149,10 +149,10 @@ function bonus() {
         bonusRock = -1;
         bonusJoy = -1;
     }
-  
+
     decisionText.push("Yes");
     decisionText.push("No");
-  
+
     output.push(decisionText);
     output.push(promotionRock);
     return output;
@@ -178,7 +178,7 @@ function bonus() {
         break;
       case 2:
         bonusRock = Math.floor((Math.random() * 100) + 100);
-        bonusJoy = Math.floor((Math.random() * 10) + 10);
+        bonusJoy = Math.floor((Math.random() * 20) + 10);
         outputText = "You lost rock coat, tough luck. Buy a new coat or catch a coal?";
         decisionText.push("Lose " + bonusJoy + " joy.");
         decisionText.push("Lose " + bonusRock + " rocks.");
@@ -201,7 +201,7 @@ function bonus() {
         bonusRock = -1;
         bonusJoy = -1;
     }
-  
+
     output.push(decisionText);
     output.push(promotionRock);
     return output;
@@ -226,7 +226,7 @@ function bonus() {
         output.push(decisionText);
         output.push(promotionRock);
         break;
-  
+
       case 2:
         promotionRock = Math.floor((Math.random() * 150) + 100);
         outputText = "\"You lack skill. You deserve less rocks.\" - Boss. " +
@@ -243,7 +243,7 @@ function bonus() {
         bonusRock = -1;
         bonusJoy = -1;
     }
-  
+
     return output;
   }
 
