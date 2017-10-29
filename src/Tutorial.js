@@ -45,6 +45,19 @@ class Tutorial extends Component {
     this.updateSlider = this.updateSlider.bind(this);
     this.updateAllocation = this.updateAllocation.bind(this);
     this.currentAllocValid = this.currentAllocValid.bind(this);
+    this.updateNormal = this.updateNormal.bind(this);
+  }
+
+  updateChoice() {
+
+  }
+
+  updateNormal() {
+    this.setState({
+      unallocated: this.state.unallocated + this.state.currentEvent[1],
+      joy: this.state.joy + this.state.currentEvent[2],
+    });
+    this.closeNormal();
   }
 
   close() {
@@ -211,7 +224,7 @@ class Tutorial extends Component {
                 </Modal.Header>
                 <Modal.Body>
                   <div className="Tutorial--loans-modal-buttons">
-                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button">OK</Button>
+                    <Button bsStyle="primary" bsSize="large" onClick={this.updateNormal}>OK</Button>
                   </div>
                 </Modal.Body>
               </Modal>
