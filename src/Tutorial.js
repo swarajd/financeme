@@ -4,7 +4,7 @@ import ProgressBar from 'react-bootstrap/lib/ProgressBar';
 import Modal from 'react-bootstrap/lib/Modal';
 import Slider from './Slider.js';
 import './tutorial.css';
-import woman from './woman.png'
+import grug from './grug.jpg'
 
 import event from './EventGenerator.js';
 
@@ -132,11 +132,11 @@ class Tutorial extends Component {
       <div>
         <div className="Tutorial--body">
           <div className="Tutorial--sidebar">
-            <img className="circular--square" alt="woman" src={woman} />
-            <div className="Tutorial--name">Grugina</div>
+            <img className="circular--square" alt="grug" src={grug} />
+            <div className="Tutorial--name">Grug</div>
             <div className="Tutorial--current-cycle"> Stage: {this.state.stage} </div>
             <div className="Tutorial--salary">Salary: ${this.state.salary}</div>
-            <div className="Tutorial--about"> Long ago there was a cave-person named Grugina. They looked up at the stars and dreamed of being a rockstar. So they decided to make a plan, and get {this.state.goal} rocks and build a spaceship to become a rockstar.</div>
+            <div className="Tutorial--about"> Long ago there was a cave-person named Grug. They looked up at the stars and dreamed of being a rockstar. So they decided to make a plan, and get {this.state.goal} rocks and build a spaceship to become a rockstar.</div>
 
           </div>
           <div className="Tutorial--content">
