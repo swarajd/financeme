@@ -6,11 +6,13 @@ import Slider from './Slider.js';
 import './tutorial.css';
 import woman from './woman.png'
 
+import event from './EventGenerator.js';
+
 class Tutorial extends Component {
 
   constructor() {
 
-    let initialSalary = Math.floor(Math.random() * ((600-500)+1) + 500);
+    let initialSalary = Math.floor(Math.random() * ((600 - 500) + 1) + 500);
 
     super();
     this.state = {
@@ -22,14 +24,38 @@ class Tutorial extends Component {
       unallocated: initialSalary,
       salary: initialSalary,
       goal: 5000,
+      joy: 50,
+      currentAllocated: 0,
+      entertainmentSlider: 0,
+      necessitiesSlider: 0,
+      emergencySlider: 0,
+      savingsSlider: 0,
+      currentEvent: [],
+      choiceEventFulfilled: true,
+      normalEventFulfilled: true,
+      curLoanAmt: 0
     };
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
+    this.closeChoice = this.closeChoice.bind(this);
+    this.closeNormal = this.closeNormal.bind(this);
     this.incrementStage = this.incrementStage.bind(this);
+    this.incrementValues = this.incrementValues.bind(this);
+    this.updateSlider = this.updateSlider.bind(this);
+    this.updateAllocation = this.updateAllocation.bind(this);
+    this.currentAllocValid = this.currentAllocValid.bind(this);
   }
 
   close() {
     this.setState({ showModal: false });
+  }
+
+  closeChoice() {
+    this.setState({ choiceEventFulfilled: true });
+  }
+
+  closeNormal() {
+    this.setState({ normalEventFulfilled: true });
   }
 
   open() {
@@ -38,10 +64,44 @@ class Tutorial extends Component {
 
   incrementStage() {
     if (this.state.stage < 6) {
+      let curEvt = event();
+      let type = curEvt[3].length === 0 ? "normalEventFulfilled" : "choiceEventFulfilled";
       this.setState({
-        stage: this.state.stage + 1
+        stage: this.state.stage + 1,
+        currentEvent: curEvt,
+        [type]: false,
       });
+      this.incrementValues();
+      console.log(curEvt);
     }
+  }
+
+  incrementValues() {
+    this.setState({
+      unallocated: this.state.unallocated + this.state.salary,
+      emergencyFunds: this.state.emergencyFunds + parseInt(this.state.emergencySlider, 10),
+      savings: this.state.savings + parseInt(this.state.savingsSlider, 10),
+      loans: this.state.loans + parseInt(this.state.curLoanAmt, 10)
+    })
+  }
+
+  updateSlider(value, category) {
+    this.setState({
+      [category]: value
+    }, this.updateAllocation);
+  }
+
+  updateAllocation() {
+    this.setState({
+      currentAllocated: parseInt(this.state.entertainmentSlider, 10) +
+      parseInt(this.state.necessitiesSlider, 10) +
+      parseInt(this.state.emergencySlider, 10) +
+      parseInt(this.state.savingsSlider, 10)
+    })
+  }
+
+  currentAllocValid() {
+    return (this.state.currentAllocated <= this.state.unallocated);
   }
 
   render() {
@@ -54,11 +114,11 @@ class Tutorial extends Component {
             <div className="Tutorial--current-cycle"> Stage: {this.state.stage} </div>
             <div className="Tutorial--salary">Salary: ${this.state.salary}</div>
             <div className="Tutorial--about"> Long ago there was a cave-person named Grugina. They looked up at the stars and dreamed of being a rockstar. So they decided to make a plan, and get {this.state.goal} rocks and build a spaceship to become a rockstar.</div>
-            
+
           </div>
           <div className="Tutorial--content">
             <div className="Tutorial--content-rock-balance">
-              {this.state.unallocated} rocks
+              {this.state.unallocated} rocks, <span className={this.currentAllocValid() ? "" : "invalid-allocation"}>{this.state.currentAllocated} rocks</span>
             </div>
             <div className="Tutorial--content-category-sliders">
               <div className="Tutorial--content-scale">
@@ -66,7 +126,7 @@ class Tutorial extends Component {
                   entertainment
                 </div>
                 <div className="Tutorial--content-scale-slider">
-                  <Slider min={0} max={this.state.unallocated}/>
+                  <Slider min={0} value={this.state.entertainmentSlider} max={this.state.unallocated} remaining={this.state.unallocated - this.state.currentAllocated} updateFn={this.updateSlider} category="entertainmentSlider" />
                 </div>
               </div>
               <div className="Tutorial--content-scale">
@@ -74,7 +134,7 @@ class Tutorial extends Component {
                   necessities
                 </div>
                 <div className="Tutorial--content-scale-slider">
-                  <Slider min={0} max={this.state.unallocated}/>
+                  <Slider min={0} value={this.state.necessitiesSlider} max={this.state.unallocated} remaining={this.state.unallocated - this.state.currentAllocated} updateFn={this.updateSlider} category="necessitiesSlider" />
                 </div>
               </div>
               <div className="Tutorial--content-scale">
@@ -82,7 +142,7 @@ class Tutorial extends Component {
                   emergency funds
                 </div>
                 <div className="Tutorial--content-scale-slider">
-                  <Slider min={0} max={this.state.unallocated}/>
+                  <Slider min={0} value={this.state.emergencySlider} max={this.state.unallocated} remaining={this.state.unallocated - this.state.currentAllocated} updateFn={this.updateSlider} category="emergencySlider" />
                 </div>
               </div>
               <div className="Tutorial--content-scale">
@@ -90,7 +150,7 @@ class Tutorial extends Component {
                   savings
                 </div>
                 <div className="Tutorial--content-scale-slider">
-                  <Slider min={0} max={this.state.unallocated}/>
+                  <Slider min={0} value={this.state.savingsSlider} max={this.state.unallocated} remaining={this.state.unallocated - this.state.currentAllocated} updateFn={this.updateSlider} category="savingsSlider" />
                 </div>
               </div>
             </div>
@@ -102,14 +162,36 @@ class Tutorial extends Component {
                 </Modal.Header>
                 <Modal.Body>
                   <div className="Tutorial--loans-modal-buttons">
-                      <Button bsStyle="primary" bsSize="large" className="loan-modal-button">Take Loan</Button>
-                      <Button bsStyle="primary" bsSize="large" className="loan-modal-button">Pay Loan</Button>
+                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button">Take Loan</Button>
+                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button">Pay Loan</Button>
                   </div>
                 </Modal.Body>
               </Modal>
             </div>
             <div className="Tutorial--next-cycle-wrapper">
-              <Button bsStyle="primary" bsSize="large" onClick={this.incrementStage} disabled={this.state.stage === 6}> Next Cycle </Button>
+              <Button bsStyle="primary" bsSize="large" onClick={this.incrementStage} disabled={this.state.stage === 6 || !this.currentAllocValid()}> Next Cycle </Button>
+              <Modal show={!this.state.choiceEventFulfilled} onHide={this.closeChoice}>
+                <Modal.Header closeButton>
+                  <Modal.Title>{this.state.currentEvent[0]}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <div className="Tutorial--loans-modal-buttons">
+                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button">{this.state.currentEvent.length > 0 ? this.state.currentEvent[3][0] : "yes"}</Button>
+                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button">{this.state.currentEvent.length > 0 ? this.state.currentEvent[3][1] : "no"}</Button>
+                  </div>
+                </Modal.Body>
+              </Modal>
+
+              <Modal show={!this.state.normalEventFulfilled} onHide={this.closeNormal}>
+                <Modal.Header closeButton>
+                  <Modal.Title>{this.state.currentEvent[0]}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <div className="Tutorial--loans-modal-buttons">
+                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button">OK</Button>
+                  </div>
+                </Modal.Body>
+              </Modal>
             </div>
           </div>
         </div>
@@ -131,7 +213,7 @@ class Tutorial extends Component {
           <div className="Tutorial--joy-meter">
             <h1>Joy Meter</h1>
             <div className="progressWrapper">
-              <ProgressBar active now={50} label={`${50}%`} />
+              <ProgressBar active now={this.state.joy} label={`${this.state.joy}%`} />
             </div>
           </div>
         </div>

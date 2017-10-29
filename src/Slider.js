@@ -7,7 +7,7 @@ class Slider extends Component {
         super(props);
 
         this.state = {
-            value: 0,
+            value: props.value,
         };
     }
 
@@ -15,10 +15,11 @@ class Slider extends Component {
         return (
             <div className="sliderWrapper">
                 <input type="range" min={this.props.min} max={this.props.max} value={this.state.value} className="slider" onChange={(e) => {
+                    let val = e.target.value;
                     this.setState({
-                        value: e.target.value
-                    })
-                }}/>
+                        value: val
+                    }, () => { this.props.updateFn(val, this.props.category) })
+                }} />
                 <div>{this.state.value}</div>
             </div>
         )
