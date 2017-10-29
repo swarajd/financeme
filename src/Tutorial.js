@@ -23,7 +23,7 @@ class Tutorial extends Component {
       loans: 0,
       unallocated: initialSalary,
       salary: initialSalary,
-      goal: 5000,
+      goal: 2000,
       joy: 50,
       currentAllocated: 0,
       entertainmentSlider: 0,
@@ -33,7 +33,9 @@ class Tutorial extends Component {
       currentEvent: [],
       choiceEventFulfilled: true,
       normalEventFulfilled: true,
-      curLoanAmt: 0
+      curLoanAmt: 0,
+      gameover: false,
+      winloss: 0,
     };
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
@@ -46,16 +48,35 @@ class Tutorial extends Component {
     this.updateAllocation = this.updateAllocation.bind(this);
     this.currentAllocValid = this.currentAllocValid.bind(this);
     this.updateNormal = this.updateNormal.bind(this);
+    this.checkWinCon = this.checkWinCon.bind(this);
+    this.checkLoseCon = this.checkLoseCon.bind(this);
   }
 
-  updateChoice() {
+  checkWinCon() {
+    if (this.state.savings >= 2000) {
+      console.log("win");
+      this.setState({
+        gameover: true,
+        winloss: 1
+      });
+    }
+  }
 
+  checkLoseCon() {
+    if (this.state.joy === 0 || this.state.savings < 2000) {
+      console.log("loss");
+      this.setState({
+        gameover: true,
+        winloss: 0
+      });
+    }
   }
 
   updateNormal() {
     this.setState({
       unallocated: this.state.unallocated + this.state.currentEvent[1],
-      joy: this.state.joy + this.state.currentEvent[2],
+      joy: Math.max(Math.min(this.state.joy + this.state.currentEvent[2], 100), 0),
+      salary: this.state.salary + this.state.currentEvent[4]
     });
     this.closeNormal();
   }
@@ -77,17 +98,20 @@ class Tutorial extends Component {
       if (idx === 0) {
         this.setState({
           unallocated: this.state.unallocated + this.state.currentEvent[1],
-          joy: this.state.joy + this.state.currentEvent[2]
+          joy: Math.max(Math.min(this.state.joy + this.state.currentEvent[2], 100), 0),
+          salary: this.state.salary + this.state.currentEvent[4]
         })
       }
     } else {
       if (idx === 0) {
         this.setState({
-          joy: this.state.joy + this.state.currentEvent[2]
+          joy: Math.max(Math.min(this.state.joy + this.state.currentEvent[2], 100), 0),
+          salary: this.state.salary + this.state.currentEvent[4]
         })
       } else {
         this.setState({
-          currentAllocated: this.state.currentAllocated + this.state.currentEvent[1]
+          currentAllocated: this.state.currentAllocated + this.state.currentEvent[1],
+          salary: this.state.salary + this.state.currentEvent[4]
         })
       }
     }
@@ -99,22 +123,28 @@ class Tutorial extends Component {
   }
 
   incrementStage() {
-    if (this.state.stage < 6) {
-      let curEvt = event();
-      let type = curEvt[3].length === 0 ? "normalEventFulfilled" : "choiceEventFulfilled";
-      this.setState({
-        stage: this.state.stage + 1,
-        currentEvent: curEvt,
-        [type]: false,
-      });
-      this.incrementValues();
-      console.log(curEvt);
+    if (this.state.stage <= 6) {
+      if (this.state.stage + 1 > 6) {
+        console.log("check winloss");
+        this.checkLoseCon();
+        this.checkWinCon();
+      } else {
+        let curEvt = event();
+        let type = curEvt[3].length === 0 ? "normalEventFulfilled" : "choiceEventFulfilled";
+        this.setState({
+          stage: this.state.stage + 1,
+          currentEvent: curEvt,
+          [type]: false,
+        });
+        this.incrementValues();
+        console.log(curEvt);
+      }
     }
   }
 
   incrementValues() {
     this.setState({
-      unallocated: this.state.unallocated + this.state.salary,
+      unallocated: this.state.unallocated - this.state.currentAllocated + this.state.salary,
       emergencyFunds: this.state.emergencyFunds + parseInt(this.state.emergencySlider, 10),
       savings: this.state.savings + parseInt(this.state.savingsSlider, 10),
       loans: this.state.loans + parseInt(this.state.curLoanAmt, 10)
@@ -139,6 +169,8 @@ class Tutorial extends Component {
   currentAllocValid() {
     return (this.state.currentAllocated <= this.state.unallocated);
   }
+
+
 
   render() {
     return (
@@ -205,15 +237,15 @@ class Tutorial extends Component {
               </Modal>
             </div>
             <div className="Tutorial--next-cycle-wrapper">
-              <Button bsStyle="primary" bsSize="large" onClick={this.incrementStage} disabled={this.state.stage === 6 || !this.currentAllocValid()}> Next Cycle </Button>
+              <Button bsStyle="primary" bsSize="large" onClick={this.incrementStage} disabled={this.state.stage > 6 || !this.currentAllocValid()}> {this.state.stage < 6 ? "Next Stage" : "End game"} </Button>
               <Modal show={!this.state.choiceEventFulfilled} onHide={this.closeChoice}>
                 <Modal.Header closeButton>
                   <Modal.Title>{this.state.currentEvent[0]}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                   <div className="Tutorial--loans-modal-buttons">
-                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button" onClick={() => this.makeChoice(0, this.state.currentEvent[3][0] === "Yes") }>{this.state.currentEvent.length > 0 ? this.state.currentEvent[3][0] : "yes"}</Button>
-                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button" onClick={() => this.makeChoice(1, this.state.currentEvent[3][0] === "Yes") }>{this.state.currentEvent.length > 0 ? this.state.currentEvent[3][1] : "no"}</Button>
+                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button" onClick={() => this.makeChoice(0, this.state.currentEvent[3][0] === "Yes")}>{this.state.currentEvent.length > 0 ? this.state.currentEvent[3][0] : "yes"}</Button>
+                    <Button bsStyle="primary" bsSize="large" className="loan-modal-button" onClick={() => this.makeChoice(1, this.state.currentEvent[3][0] === "Yes")}>{this.state.currentEvent.length > 0 ? this.state.currentEvent[3][1] : "no"}</Button>
                   </div>
                 </Modal.Body>
               </Modal>
@@ -228,6 +260,16 @@ class Tutorial extends Component {
                   </div>
                 </Modal.Body>
               </Modal>
+
+              <Modal show={this.state.gameover} >
+                <Modal.Header>
+                  <Modal.Title>{this.state.winloss === 1 ? "You Won!" : "You Lost..."}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  Refresh this tab to play again or close this tab to exit.
+                </Modal.Body>
+              </Modal>
+
             </div>
           </div>
         </div>
