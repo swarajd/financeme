@@ -85,9 +85,6 @@ class Tutorial extends Component {
                       <Button bsStyle="primary" bsSize="large" className="loan-modal-button">Pay Loan</Button>
                   </div>
                 </Modal.Body>
-                <Modal.Footer>
-                  <Button onClick={this.close}>Close</Button>
-                </Modal.Footer>
               </Modal>
             </div>
           </div>
