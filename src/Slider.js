@@ -3,18 +3,18 @@ import './slider.css'
 
 class Slider extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
-            value: 50,
+            value: 0,
         };
     }
 
     render() {
         return (
             <div className="sliderWrapper">
-                <input type="range" min="1" max="100" value={this.state.value} className="slider" onChange={(e) => {
+                <input type="range" min={this.props.min} max={this.props.max} value={this.state.value} className="slider" onChange={(e) => {
                     this.setState({
                         value: e.target.value
                     })

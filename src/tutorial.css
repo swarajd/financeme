@@ -3,7 +3,7 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 70vh;
+    height: 80vh;
 }
 
 .Tutorial--sidebar {
@@ -66,11 +66,33 @@
 }
 
 .Tutorial--about {
-    height: 65%;
+    height: 35%;
     margin-top: 5%;
     padding: 10px;
     width: 100%;
     font-size: 20px;
+    border: 2px solid #36363f;
+    background-color: #373942;
+    text-align: center;
+}
+
+.Tutorial--current-cycle {
+    height: 10%;
+    margin-top: 5%;
+    padding: 10px;
+    width: 100%;
+    font-size: 36px;
+    border: 2px solid #36363f;
+    background-color: #373942;
+    text-align: center;
+}
+
+.Tutorial--salary {
+    height: 10%;
+    margin-top: 5%;
+    padding: 10px;
+    width: 100%;
+    font-size: 36px;
     border: 2px solid #36363f;
     background-color: #373942;
     text-align: center;
@@ -100,10 +122,15 @@
     margin-right: 30px;
 }
 
+.Tutorial--next-cycle-wrapper {
+    text-align: right;
+    padding-right: 10px;
+}
+
 .Tutorial--footer {
     display: flex;
     flex-direction: row;
-    height: 30vh;
+    height: 20vh;
 }
 
 .Tutorial--rock-stash {
@@ -137,7 +164,7 @@
     flex-direction: column;
     align-items: center;
     /* border: 1px solid #000; */
-    background-color: rgba(189,195,199, 0.3);
+    background-color: #bdc3c74d;
     margin: 10px;
 }
 
@@ -156,5 +183,5 @@
 
 .progress {
     width: 80%;
-    margin-top: 50px;
+    margin-top: 30px;
 }

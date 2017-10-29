@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import Button from 'react-bootstrap/lib/Button';
 import ProgressBar from 'react-bootstrap/lib/ProgressBar';
 import Modal from 'react-bootstrap/lib/Modal';
@@ -10,12 +9,23 @@ import woman from './woman.png'
 class Tutorial extends Component {
 
   constructor() {
+
+    let initialSalary = Math.floor(Math.random() * ((600-500)+1) + 500);
+
     super();
     this.state = {
-      showModal: false
+      showModal: false,
+      stage: 1,
+      emergencyFunds: 0,
+      savings: 0,
+      loans: 0,
+      unallocated: initialSalary,
+      salary: initialSalary,
+      goal: 5000,
     };
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
+    this.incrementStage = this.incrementStage.bind(this);
   }
 
   close() {
@@ -26,6 +36,14 @@ class Tutorial extends Component {
     this.setState({ showModal: true });
   }
 
+  incrementStage() {
+    if (this.state.stage < 6) {
+      this.setState({
+        stage: this.state.stage + 1
+      });
+    }
+  }
+
   render() {
     return (
       <div>
@@ -33,11 +51,14 @@ class Tutorial extends Component {
           <div className="Tutorial--sidebar">
             <img className="circular--square" alt="woman" src={woman} />
             <div className="Tutorial--name">Grugina</div>
-            <div className="Tutorial--about"> Long ago there was a cave-person named Grugina. They looked up at the stars and dreamed of being a rockstar. So they decided to make a plan, and get 50,000 rocks and build a spaceship to become a rockstar.</div>
+            <div className="Tutorial--current-cycle"> Stage: {this.state.stage} </div>
+            <div className="Tutorial--salary">Salary: ${this.state.salary}</div>
+            <div className="Tutorial--about"> Long ago there was a cave-person named Grugina. They looked up at the stars and dreamed of being a rockstar. So they decided to make a plan, and get {this.state.goal} rocks and build a spaceship to become a rockstar.</div>
+            
           </div>
           <div className="Tutorial--content">
             <div className="Tutorial--content-rock-balance">
-              22,000 rocks
+              {this.state.unallocated} rocks
             </div>
             <div className="Tutorial--content-category-sliders">
               <div className="Tutorial--content-scale">
@@ -45,7 +66,7 @@ class Tutorial extends Component {
                   entertainment
                 </div>
                 <div className="Tutorial--content-scale-slider">
-                  <Slider />
+                  <Slider min={0} max={this.state.unallocated}/>
                 </div>
               </div>
               <div className="Tutorial--content-scale">
@@ -53,7 +74,7 @@ class Tutorial extends Component {
                   necessities
                 </div>
                 <div className="Tutorial--content-scale-slider">
-                  <Slider />
+                  <Slider min={0} max={this.state.unallocated}/>
                 </div>
               </div>
               <div className="Tutorial--content-scale">
@@ -61,7 +82,7 @@ class Tutorial extends Component {
                   emergency funds
                 </div>
                 <div className="Tutorial--content-scale-slider">
-                  <Slider />
+                  <Slider min={0} max={this.state.unallocated}/>
                 </div>
               </div>
               <div className="Tutorial--content-scale">
@@ -69,7 +90,7 @@ class Tutorial extends Component {
                   savings
                 </div>
                 <div className="Tutorial--content-scale-slider">
-                  <Slider />
+                  <Slider min={0} max={this.state.unallocated}/>
                 </div>
               </div>
             </div>
@@ -87,6 +108,9 @@ class Tutorial extends Component {
                 </Modal.Body>
               </Modal>
             </div>
+            <div className="Tutorial--next-cycle-wrapper">
+              <Button bsStyle="primary" bsSize="large" onClick={this.incrementStage} disabled={this.state.stage === 6}> Next Cycle </Button>
+            </div>
           </div>
         </div>
         <div className="Tutorial--footer">
@@ -94,13 +118,13 @@ class Tutorial extends Component {
             <h1>Rock Stash</h1>
             <div className="Tutorial--rock-stash-stats">
               <div className="Tutorial--rock-stash-stat">
-                Emergency Funds: <br /> asdf
+                Emergency Funds: <br /> ${this.state.emergencyFunds}
               </div>
               <div className="Tutorial--rock-stash-stat">
-                Savings: <br /> asdf
+                Savings: <br /> ${this.state.savings}
               </div>
               <div className="Tutorial--rock-stash-stat">
-                Loans: <br /> asdf
+                Loans: <br /> ${this.state.loans}
               </div>
             </div>
           </div>
